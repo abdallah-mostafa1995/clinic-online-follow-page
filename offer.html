@@ -6,12 +6,12 @@
 <title>نظام العيادة — EasyLife Tec</title>
 <meta name="description" content="برنامج إدارة العيادات والمراكز الطبية: الدور، الكشف والروشتة، الحسابات، التقارير، متابعة من الموبايل وحجز أونلاين. تجربة مجانية بالتركيب عندك.">
 <meta property="og:title" content="نظام العيادة — EasyLife Tec">
-<meta property="og:description" content="نظّم عيادتك أو مركزك من أول الحجز لحد الحسابات. تجربة مجانية بالتركيب عندك.">
+<meta property="og:description" content="تابع عيادتك أو مركزك وأرباحك من البيت. تجربة مجانية بالتركيب عندك.">
 <meta property="og:image" content="img/queue.jpg">
 <link rel="icon" href="icon-192.png">
 <script>
 /* ===== غيّر السطر ده بس: حط لينك موقع الاشتراكات بتاعك (اللي آخره /exec) بين العلامتين ' ' ===== */
-var OWNER_URL='PASTE_YOUR_EXEC_LINK_HERE';
+var OWNER_URL='https://script.google.com/macros/s/AKfycbycDtGGFLGnY2J9WESxrkpLzXtuGb1G14yXrNgZ1PzWVTpmyXAEsRLGG1VbPmhEtLEcjQ/exec';
 </script>
 <style>
 @font-face{font-family:Ar;src:url(ar-r.woff2) format('woff2');font-weight:400}
@@ -70,6 +70,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--pri2);background:#fff
 form{position:relative}
 body{overflow-x:hidden}
 .msg{margin-top:10px;font-weight:700}.msg.ok{color:var(--ok)}.msg.bad{color:#C0392B}
+
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:7px;max-height:250px;overflow:auto;padding:2px}
+.days button{border:1px solid var(--line);background:#F4F7FF;border-radius:12px;padding:7px 6px;font:inherit;font-size:13.5px;cursor:pointer;line-height:1.4}
+.days button b{display:block;font-size:14.5px}.days button small{color:var(--muted);font-size:12px}
+.days button.on{background:var(--pri);color:#fff;border-color:var(--pri)}.days button.on small{color:#DCE5FF}
+.days button:disabled{background:#F1F1F1;color:#AAA;cursor:not-allowed;text-decoration:line-through}
+.meta2{font-size:12.5px;color:var(--muted);margin-top:5px}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.gal figure{background:#F5F7FC;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:zoom-in}
+.gal img{width:100%;height:220px;object-fit:cover;object-position:top;display:block}
+.gal figcaption{padding:8px 10px;font-weight:700;font-size:14px}
+#lb{display:none;position:fixed;inset:0;background:rgba(10,15,30,.88);z-index:20;align-items:flex-start;justify-content:center;overflow:auto;padding:20px;cursor:zoom-out}
+#lb img{max-width:min(960px,100%);border-radius:12px}
+.pb{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.pb div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:0 4px 16px rgba(20,40,90,.05)}
+.pb .x{display:block;color:#B23A2A;font-weight:700;margin-bottom:6px}.pb .v{display:block;color:var(--ok);font-weight:700}
 footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-align:center;font-size:14.5px}
 .fab{position:fixed;bottom:18px;left:18px;z-index:9;background:#25D366;color:#fff;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none;font-size:28px}
 @media(max-width:820px){.hero,.feat,.who,.free{grid-template-columns:1fr}.feat:nth-child(even) .im{order:0}.why{grid-template-columns:1fr}.hero h1{font-size:29px}.f2{grid-template-columns:1fr}h2{font-size:24px}}
@@ -80,61 +96,74 @@ footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-alig
   <div class="nav"><b>EasyLife Tec</b><span class="sp"></span><a href="#prices">الأسعار</a><a href="#free">تجربة مجانية</a></div>
   <div class="hero">
     <div>
-      <h1>عيادتك أو مركزك<br>متنظّمين <span>من أول الحجز لحد الحسابات</span></h1>
-      <p>برنامج عربي على ويندوز بيشتغل من غير نت جوه العيادة: الدور، الكشف والروشتة، الشركات، حسابات الدكاترة والتقارير. وكمان متابعة من الموبايل وحجز أونلاين للمرضى.</p>
+      <h1>تابع عيادتك أو مركزك<br><span>وأرباحك من البيت</span> 📱</h1>
+      <p>إنت في البيت أو في السفر، ومن موبايلك شايف: مين حجز النهارده ومين حضر ومين دخل، وإيراد اليوم والشهر، وحسابات كل دكتور. وجوه العيادة برنامج عربي بينظّم الدور والكشف والروشتة والحسابات، وبيشتغل حتى لو النت فصل.</p>
       <div class="btns"><a class="btn b1" href="#free">اطلب تجربة مجانية</a><a class="btn b2 wa" href="#">💬 كلمنا واتساب</a></div>
-      <div class="tags"><span>✔ بيشتغل من غير نت</span><span>✔ ويندوز 7 و10 و11</span><span>✔ التركيب والتدريب علينا</span><span>✔ دعم فني</span></div>
+      <div class="tags"><span>✔ متابعة وأرباح من الموبايل</span><span>✔ بيشتغل من غير نت</span><span>✔ ويندوز 7 و10 و11</span><span>✔ التركيب والتدريب علينا</span><span>✔ دعم فني</span></div>
     </div>
-    <img src="img/queue.jpg" alt="شاشة الدور في نظام العيادة">
+    <img src="img/queue.jpg?v=3" alt="شاشة الدور في نظام العيادة">
   </div>
 </div></header>
 
+<section style="padding-bottom:10px"><div class="w">
+  <div class="feat" style="border:2px solid var(--gold)"><div class="im ph"><img src="img/follow.jpg?v=3" alt="متابعة العيادة من الموبايل"><img src="img/book.jpg?v=3" alt="الحجز الأونلاين"></div><div>
+    <h3><i>🏠</i>عيادتك معاك وإنت في البيت</h3>
+    <p>من غير ما تتصل بالسكرتيرة تسأل «عملنا كام النهارده؟»: افتح اللينك من موبايلك وشوف كل حاجة لحظة بلحظة.</p>
+    <ul><li>حجوزات النهارده: مين حضر، مين جوه، ومين لسه</li><li>إيراد اليوم والشهر، وكاش ولا فيزا ولا تأمين</li><li>للمراكز: إيراد ونسبة كل دكتور، والمدير شايف الكل</li><li>كل دكتور ليه لينك بباسورد ويشوف مرضاه هو بس</li><li>صفحة حجز أونلاين للمرضى</li></ul></div></div>
+</div></section>
+<section style="padding-top:10px"><div class="w">
+  <h2>مشاكل كل عيادة… واتحلّت</h2><p class="sub">بالأحمر المشكلة، وبالأخضر البرنامج بيحلها إزاي</p>
+  <div class="pb"><div><span class="x">✗ زحمة وخناقات على الدور، و«أنا جيت قبله»</span><span class="v">✓ الدور بيتحسب لوحده بأسبقية الحجز أو الحضور، والدكتور والسكرتيرة شايفين نفس الترتيب</span></div><div><span class="x">✗ مش عارف العيادة عملت كام النهارده إلا لما ترجع</span><span class="v">✓ الإيراد لحظة بلحظة على موبايلك وإنت في البيت</span></div><div><span class="x">✗ فلوس بتتوه بين الكاش والفيزا والخدمات الإضافية</span><span class="v">✓ كل جنيه متسجل باسم المريض وطريقة الدفع، وتقفيل يومي جاهز</span></div><div><span class="x">✗ دفتر الحجوزات بيضيع أو الخط مش مقروء</span><span class="v">✓ كل الحجوزات والمرضى متسجلين ومتدوّر عليهم بالاسم أو التليفون</span></div><div><span class="x">✗ ملف المريض القديم مش لاقيينه</span><span class="v">✓ كل زيارات المريض وتشخيصاته وروشتاته في ملف واحد</span></div><div><span class="x">✗ حساب نسبة كل دكتور آخر الشهر بالآلة الحاسبة</span><span class="v">✓ نسبة كل دكتور بتتحسب لوحدها، وكشف حساب جاهز</span></div><div><span class="x">✗ حسابات شركات التأمين متلخبطة</span><span class="v">✓ نسبة الشركة ونسبة المريض بتتحسب لوحدها، والمستحقات واضحة</span></div><div><span class="x">✗ المريض بيتصل كل شوية يسأل «فاضل قدامي كام؟»</span><span class="v">✓ السكرتيرة بتقوله في ثانية «قدامك كام واحد»</span></div><div><span class="x">✗ النت فصل والسيستم وقف</span><span class="v">✓ البرنامج شغال على شبكة العيادة من غير نت</span></div></div>
+</div></section>
 <section><div class="w">
   <h2>كل اللي العيادة محتاجاه في برنامج واحد</h2>
   <p class="sub">صور حقيقية من البرنامج</p>
 
-  <div class="feat"><div class="im"><img src="img/queue.jpg" alt="الدور" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/queue.jpg?v=3" alt="الدور" loading="lazy"></div><div>
     <h3><i>🔢</i>الدور من غير زحمة ولا خناق</h3>
     <p>السكرتيرة بتسجّل الحجز والحضور، والدكتور شايف مين جوه ومين عليه الدور على جهازه في نفس اللحظة.</p>
     <ul><li>بأسبقية الحجز أو الحضور، أو بالتناوب بين الكشف والاستشارة</li><li>الحالات الفورية بتدخل الأول</li><li>«قدامك قد إيه» للمريض اللي بيسأل</li></ul></div></div>
 
-  <div class="feat"><div class="im"><img src="img/visit.jpg" alt="الكشف والروشتة" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/visit.jpg?v=3" alt="الكشف والروشتة" loading="lazy"></div><div>
     <h3><i>🩺</i>الكشف والروشتة في دقيقة</h3>
     <p>ملف لكل مريض فيه كل زياراته وتشخيصاته وأدويته، وروشتة مطبوعة باسم العيادة وشعارها.</p>
     <ul><li>أدوية وتحاليل جاهزة تختار منها</li><li>ميعاد المتابعة بيتسجل لوحده</li><li>تنبيه بالحساسية والأمراض المزمنة</li></ul></div></div>
 
-  <div class="feat"><div class="im"><img src="img/extra.jpg" alt="خدمات إضافية" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/extra.jpg?v=3" alt="خدمات إضافية" loading="lazy"></div><div>
     <h3><i>💵</i>كل جنيه متسجل</h3>
     <p>الكشف والخدمات الإضافية اللي الدكتور بيطلبها جوه الكشف بتوصل للسكرتيرة تحصّلها، والمريض بيرجع لدوره.</p>
     <ul><li>كاش وفيزا وإنستاباي ومحفظة</li><li>تقفيل يومي بالإيراد</li><li>مفيش فلوس بتتوه</li></ul></div></div>
 
-  <div class="feat"><div class="im"><img src="img/ins.jpg" alt="شركات التأمين" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/ins.jpg?v=3" alt="شركات التأمين" loading="lazy"></div><div>
     <h3><i>🏢</i>شركات التأمين والتعاقدات</h3>
     <p>نسبة الشركة ونسبة المريض بتتحسب لوحدها، وتعرف مستحقاتك عند كل شركة في أي وقت.</p></div></div>
 
-  <div class="feat"><div class="im"><img src="img/dues.jpg" alt="حسابات الدكاترة" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/dues.jpg?v=3" alt="حسابات الدكاترة" loading="lazy"></div><div>
     <h3><i>👨‍⚕️</i>للمراكز: حسابات كل دكتور</h3>
     <p>نسبة كل دكتور من كل خدمة، وكشف حساب جاهز في آخر الشهر من غير آلة حاسبة.</p>
     <ul><li>جدول أسبوعي لمواعيد الدكاترة</li><li>كل دكتور بيشوف مرضاه هو بس</li><li>مدير المركز شايف كل حاجة</li></ul></div></div>
 
-  <div class="feat"><div class="im"><img src="img/reports.jpg" alt="التقارير" loading="lazy"></div><div>
+  <div class="feat"><div class="im"><img src="img/reports.jpg?v=3" alt="التقارير" loading="lazy"></div><div>
     <h3><i>📊</i>تقارير بالرسومات</h3>
     <p>الإيراد بالشهر، وأكتر الأيام والساعات زحمة، وأكتر الخدمات طلبًا، ونسبة اللي ما حضروش.</p></div></div>
 
-  <div class="feat"><div class="im ph"><img src="img/follow.jpg" alt="المتابعة من الموبايل" loading="lazy"><img src="img/book.jpg" alt="الحجز الأونلاين" loading="lazy"></div><div>
-    <h3><i>📱</i>العيادة في جيبك</h3>
-    <p>الدكتور والمدير بيتابعوا حجوزات النهارده والإيراد من الموبايل، من أي مكان، بباسورد.</p>
-    <ul><li>صفحة حجز أونلاين للمرضى</li><li>كل دكتور في المركز ليه لينك لوحده</li></ul></div></div>
+  
 </div></section>
 
 <section style="background:#fff"><div class="w">
+  <h2>صور من البرنامج</h2><p class="sub">اضغط على أي صورة تكبّرها</p>
+  <div class="gal"><figure><img src="img/g_doctoday.jpg?v=3" alt="شاشة الدكتور: مرضى النهارده" loading="lazy"><figcaption>شاشة الدكتور: مرضى النهارده</figcaption></figure><figure><img src="img/g_hist.jpg?v=3" alt="ملف المريض وكل زياراته" loading="lazy"><figcaption>ملف المريض وكل زياراته</figcaption></figure><figure><img src="img/rx.jpg?v=3" alt="الروشتة المطبوعة باسم العيادة" loading="lazy"><figcaption>الروشتة المطبوعة باسم العيادة</figcaption></figure><figure><img src="img/g_mrep.jpg?v=3" alt="تقرير الإيراد على الموبايل" loading="lazy"><figcaption>تقرير الإيراد على الموبايل</figcaption></figure><figure><img src="img/week.jpg?v=3" alt="جدول مواعيد الدكاترة" loading="lazy"><figcaption>جدول مواعيد الدكاترة</figcaption></figure><figure><img src="img/g_drs.jpg?v=3" alt="الدكاترة والتخصصات" loading="lazy"><figcaption>الدكاترة والتخصصات</figcaption></figure><figure><img src="img/g_drsvc.jpg?v=3" alt="خدمات وأسعار كل دكتور" loading="lazy"><figcaption>خدمات وأسعار كل دكتور</figcaption></figure><figure><img src="img/g_stmt.jpg?v=3" alt="كشف حساب الدكتور" loading="lazy"><figcaption>كشف حساب الدكتور</figcaption></figure><figure><img src="img/g_accs.jpg?v=3" alt="حسابات السكرتارية" loading="lazy"><figcaption>حسابات السكرتارية</figcaption></figure><figure><img src="img/g_soon.jpg?v=3" alt="حجوزات الأيام الجاية" loading="lazy"><figcaption>حجوزات الأيام الجاية</figcaption></figure><figure><img src="img/g_secrep.jpg?v=3" alt="تقفيل اليوم والإيراد" loading="lazy"><figcaption>تقفيل اليوم والإيراد</figcaption></figure><figure><img src="img/g_docrep.jpg?v=3" alt="تقارير الدكتور" loading="lazy"><figcaption>تقارير الدكتور</figcaption></figure><figure><img src="img/g_ob.jpg?v=3" alt="طلبات الحجز الأونلاين" loading="lazy"><figcaption>طلبات الحجز الأونلاين</figcaption></figure><figure><img src="img/g_center.jpg?v=3" alt="إعدادات المركز وطرق الدفع" loading="lazy"><figcaption>إعدادات المركز وطرق الدفع</figcaption></figure><figure><img src="img/g_ctrrep.jpg?v=3" alt="تقارير المركز" loading="lazy"><figcaption>تقارير المركز</figcaption></figure></div>
+</div></section>
+<div id="lb" onclick="this.style.display='none'"><img id="lbI" alt=""></div>
+<section><div class="w">
   <h2>مين يناسبه؟</h2><p class="sub">نفس البرنامج، وبتختار النظام اللي على قدّك</p>
   <div class="who">
-    <div class="c1"><h3>🏥 المراكز الطبية</h3><ul><li>كذا دكتور وكذا تخصص</li><li>استقبال واحد لكل الدكاترة</li><li>نسب وحسابات كل دكتور</li><li>مدير بيشوف كل حاجة</li></ul></div>
-    <div class="c2"><h3>👩‍⚕️ العيادة الخاصة</h3><ul><li>دكتور واحد مع استقبال، أو دكتور لوحده</li><li>الدور والروشتة والحسابات</li><li>متابعة العيادة من الموبايل</li><li>أوفر من أي سيستم تاني</li></ul></div>
+    <div class="c1"><h3>🏥 المراكز الطبية</h3><ul><li>كذا دكتور وكذا تخصص</li><li>استقبال واحد لكل الدكاترة</li><li>نسب وحسابات كل دكتور</li><li>المدير يتابع المركز وأرباح كل دكتور من البيت</li></ul></div>
+    <div class="c2"><h3>👩‍⚕️ العيادة الخاصة</h3><ul><li>دكتور واحد مع استقبال، أو دكتور لوحده</li><li>الدور والروشتة والحسابات</li><li>تتابع العيادة وأرباحك من البيت</li><li>أوفر من أي سيستم تاني</li></ul></div>
   </div>
   <h2 style="margin-top:36px">ليه نظامنا؟</h2>
   <div class="why" style="margin-top:16px">
+    <div><b>🏠 متابعة من البيت</b>الإيراد والحجوزات وحسابات الدكاترة على موبايلك.</div>
     <div><b>⚡ من غير نت</b>بيشتغل على شبكة العيادة، فلو النت فصل الشغل مابيقفش.</div>
     <div><b>🔒 بياناتك عندك</b>البيانات على أجهزة العيادة، مش على سيرفر حد تاني.</div>
     <div><b>🇪🇬 عربي ومصري</b>مكتوب بلغة السكرتيرة والدكتور، ومن غير تعقيد.</div>
@@ -154,23 +183,28 @@ footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-alig
   <div>
     <h2>جرّب ببلاش في عيادتك</h2>
     <p>من غير ما تدفع ولا جنيه: هنتواصل معاك، ونتفق على ميعاد، ونركّب البرنامج عندك تجرّبه على شغلك الحقيقي.</p>
-    <ul class="steps"><li>املا البيانات دي</li><li>هنكلمك على الواتساب ونحدد ميعاد</li><li>نركّب ونعلّم الفريق، وتجرّب براحتك</li><li>لو عجبك، تختار الاشتراك اللي يناسبك</li></ul>
+    <ul class="steps"><li>اختار يوم الزيارة واملا البيانات</li><li>هنكلمك على الواتساب نأكد الميعاد</li><li>نركّب ونعلّم الفريق، وتجرّب براحتك</li><li>لو عجبك، تختار الاشتراك اللي يناسبك</li></ul>
     <p style="margin-top:14px;color:#FFD27A;font-weight:700">📍 الزيارة مجانية في محافظة السويس بالكامل</p>
   </div>
   <form id="fm" autocomplete="on">
     <label>عايز إيه؟</label>
     <div class="kinds" id="kinds"><button type="button" class="on" data-k="تجربة مجانية">تجربة مجانية</button><button type="button" data-k="عايز أشترك">عايز أشترك</button><button type="button" data-k="استفسار">استفسار</button></div>
+    <div id="vBox"><label>اختار يوم الزيارة *</label>
+      <div class="days" id="days"></div>
+      <div class="meta2">السبت للخميس من 7 مساءً · الجمعة من 7 صباحًا · الزيارة حوالي 4 ساعات · زيارة واحدة في اليوم</div></div>
     <div class="f2">
-      <div><label>اسمك *</label><input id="fN" required autocomplete="name"></div>
+      <div><label id="lC">اسم العيادة أو المركز *</label><input id="fC"></div>
       <div><label>رقم الموبايل (واتساب) *</label><input id="fP" required inputmode="tel" dir="ltr" autocomplete="tel"></div>
-      <div><label>اسم العيادة أو المركز</label><input id="fC"></div>
-      <div><label>النظام</label><select id="fS"><option value="">— مش متأكد —</option></select></div>
-      <div><label>المحافظة</label><input id="fG" list="govs" value="السويس"><datalist id="govs"></datalist></div>
-      <div><label>المنطقة</label><input id="fA"></div>
-      <div id="dW" style="display:none"><label>عدد الدكاترة</label><input id="fD" inputmode="numeric"></div>
-      <div><label>مدة الاشتراك اللي مهتم بيها</label><select id="fL"><option value="">— لسه —</option></select></div>
+      <div><label id="lG">المحافظة *</label><input id="fG" list="govs" value="السويس"><datalist id="govs"></datalist></div>
+      <div><label>اسم المسؤول</label><input id="fN" autocomplete="name"></div>
     </div>
-    <label>ملاحظات</label><textarea id="fO" rows="2" placeholder="مثلًا: أنسب ميعاد للزيارة"></textarea>
+    <div id="pW"><label>العنوان بالتفصيل *</label><input id="fPl" placeholder="المنطقة، الشارع، علامة مميزة"></div>
+    <div class="f2">
+      <div><label>النظام</label><select id="fS"><option value="">— مش متأكد —</option></select></div>
+      <div id="dW" style="display:none"><label>عدد الدكاترة</label><input id="fD" inputmode="numeric"></div>
+      <div id="lW"><label>مدة الاشتراك اللي مهتم بيها</label><select id="fL"><option value="">— لسه —</option></select></div>
+    </div>
+    <label>ملاحظات</label><textarea id="fO" rows="2"></textarea>
     <input class="hp" id="fH" tabindex="-1" autocomplete="off">
     <button class="btn b3" style="width:100%;justify-content:center;margin-top:12px" id="fGo">ابعت الطلب</button>
     <div class="msg" id="fMsg"></div>
@@ -181,6 +215,7 @@ footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-alig
 <a class="fab wa" href="#" aria-label="واتساب">💬</a>
 
 <script>
+[].forEach.call(document.querySelectorAll('.gal img,.feat img'),function(im){ im.style.cursor='zoom-in'; im.onclick=function(){ $('lbI').src=im.src; $('lb').style.display='flex'; }; });
 /* لو الصور اترفعت برّه فولدر img جرّب من غيره */
 [].forEach.call(document.images,function(im){ im.addEventListener("error",function(){ if(im.src.indexOf("/img/")>=0 && !im.dataset.r){ im.dataset.r=1; im.src=im.src.replace("/img/","/"); } }); if(im.complete && !im.naturalWidth && im.src.indexOf("/img/")>=0){ im.dataset.r=1; im.src=im.src.replace("/img/","/"); } });
 var WA='201070500442';
@@ -213,25 +248,57 @@ if(OWNER_URL.indexOf('/exec')>0){
     var pl=d.plans.filter(function(p){ return p.name in m; }).map(function(p){ return {id:p.id,name:p.name,m:m[p.name]}; });
     if(pl.length) PL=pl; if(Object.keys(d.p||{}).length>=4) PR=d.p; drawPrices(); }).catch(function(){});
 }
-var KIND='تجربة مجانية';
-[].forEach.call(document.querySelectorAll('#kinds button'),function(b){ b.onclick=function(){
-  KIND=b.getAttribute('data-k'); [].forEach.call(document.querySelectorAll('#kinds button'),function(x){ x.classList.toggle('on',x===b); }); }; });
+var KIND='تجربة مجانية', VDAY='', TAKEN=[];
+var DN=['الأحد','الاتنين','التلات','الأربع','الخميس','الجمعة','السبت'], MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function ymd(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+function drawDays(){
+  var h='', d=new Date(); d.setHours(12,0,0,0);
+  for(var i=1;i<=21;i++){ d.setDate(d.getDate()+1*(i>0)); var k=ymd(d), fr=d.getDay()===5, tk=TAKEN.indexOf(k)>=0;
+    if(tk && VDAY===k) VDAY='';
+    h+='<button type="button" data-d="'+k+'"'+(tk?' disabled':'')+(VDAY===k?' class="on"':'')+'><b>'+DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+'</b><small>'+(tk?'محجوز':(fr?'7 ص – 11 ص':'7 م – 11 م'))+'</small></button>'; }
+  $('days').innerHTML=h;
+  [].forEach.call(document.querySelectorAll('#days button'),function(b){ b.onclick=function(){ VDAY=b.getAttribute('data-d'); drawDays(); }; });
+}
+function loadSlots(cb){
+  if(OWNER_URL.indexOf('/exec')<0){ drawDays(); return cb&&cb(); }
+  fetch(OWNER_URL+'?a=slots',{redirect:'follow'}).then(function(r){ return r.json(); }).then(function(d){ TAKEN=d.taken||[]; drawDays(); cb&&cb(); }).catch(function(){ drawDays(); cb&&cb(); });
+}
+loadSlots();
+function setKind(k){
+  KIND=k; var tr=k==='تجربة مجانية';
+  [].forEach.call(document.querySelectorAll('#kinds button'),function(x){ x.classList.toggle('on',x.getAttribute('data-k')===k); });
+  $('vBox').style.display=tr?'':'none'; $('pW').style.display=tr?'':'none'; $('lW').style.display=tr?'none':'';
+  $('lC').textContent=tr?'اسم العيادة أو المركز *':'اسم العيادة أو المركز'; $('lG').textContent=tr?'المحافظة *':'المحافظة';
+}
+[].forEach.call(document.querySelectorAll('#kinds button'),function(b){ b.onclick=function(){ setKind(b.getAttribute('data-k')); }; });
+setKind('تجربة مجانية');
 $('fS').onchange=function(){ $('dW').style.display=this.value.indexOf('مركز')>=0?'':'none'; };
+function vLabel(k){ var d=new Date(k+'T12:00:00'); return DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+' · '+(d.getDay()===5?'7 ص – 11 ص':'7 م – 11 م'); }
 $('fm').onsubmit=function(e){
   e.preventDefault();
-  var o={a:'lead',kind:KIND,name:$('fN').value.trim(),phone:$('fP').value.trim(),clinic:$('fC').value.trim(),sys:$('fS').value,gov:$('fG').value.trim(),area:$('fA').value.trim(),
-         docs:$('fD').value.trim(),plan:$('fL').value,notes:$('fO').value.trim(),hp:$('fH').value,src:(location.search.match(/src=([^&]+)/)||[])[1]||'إعلان'};
-  var m=$('fMsg');
-  if(o.name.length<2){ m.className='msg bad'; m.textContent='اكتب اسمك'; return; }
-  if(o.phone.replace(/\D/g,'').length<10){ m.className='msg bad'; m.textContent='اكتب رقم موبايل صحيح'; return; }
-  var txt=KIND+' — نظام العيادة\nالاسم: '+o.name+'\nالعيادة: '+o.clinic+'\nالموبايل: '+o.phone+'\nالمكان: '+o.gov+' '+o.area+'\nالنظام: '+(o.sys||'مش متأكد')+(o.docs?' ('+o.docs+' دكتور)':'')+'\nالاشتراك: '+(o.plan||'لسه')+(o.notes?'\nملاحظات: '+o.notes:'');
-  var done=function(){ m.className='msg ok'; m.innerHTML='وصلنا طلبك ✓ هنكلمك على الواتساب قريب. <a href="'+waUrl(txt)+'" target="_blank">أو ابعتلنا دلوقتي على الواتساب</a>';
-    $('fm').reset(); $('fG').value='السويس'; };
+  var tr=KIND==='تجربة مجانية';
+  var o={a:'lead',kind:KIND,name:$('fN').value.trim(),phone:$('fP').value.trim(),clinic:$('fC').value.trim(),sys:$('fS').value,gov:$('fG').value.trim(),
+         place:tr?$('fPl').value.trim():'',visit:tr?VDAY:'',docs:$('fD').value.trim(),plan:tr?'':$('fL').value,notes:$('fO').value.trim(),hp:$('fH').value,src:(location.search.match(/src=([^&]+)/)||[])[1]||'إعلان'};
+  var m=$('fMsg'), bad=function(t){ m.className='msg bad'; m.textContent=t; };
+  if(tr && !o.visit) return bad('اختار يوم الزيارة');
+  if(tr && o.clinic.length<2) return bad('اكتب اسم العيادة أو المركز');
+  if(!tr && o.clinic.length<2 && o.name.length<2) return bad('اكتب اسمك أو اسم العيادة');
+  if(o.phone.replace(/\D/g,'').length<10) return bad('اكتب رقم موبايل صحيح');
+  if(tr && o.gov.length<2) return bad('اكتب المحافظة');
+  if(tr && o.place.length<3) return bad('اكتب العنوان');
+  var txt=KIND+' — نظام العيادة\nالعيادة: '+o.clinic+(o.name?'\nالاسم: '+o.name:'')+'\nالموبايل: '+o.phone+'\nالمحافظة: '+o.gov+(o.place?'\nالعنوان: '+o.place:'')+
+    (o.visit?'\nميعاد الزيارة: '+vLabel(o.visit):'')+'\nالنظام: '+(o.sys||'مش متأكد')+(o.docs?' ('+o.docs+' دكتور)':'')+(o.plan?'\nالاشتراك: '+o.plan:'')+(o.notes?'\nملاحظات: '+o.notes:'');
+  var done=function(){ m.className='msg ok'; m.innerHTML='اتحجز ✓ '+(o.visit?'ميعادك '+vLabel(o.visit)+'. ':'')+'هنكلمك على الواتساب نأكد. <a href="'+waUrl(txt)+'" target="_blank">أو ابعتلنا دلوقتي</a>';
+    $('fm').reset(); $('fG').value='السويس'; VDAY=''; loadSlots(); };
   var fail=function(){ m.className='msg ok'; m.innerHTML='كمّل الطلب على الواتساب: <a href="'+waUrl(txt)+'" target="_blank"><b>اضغط هنا</b></a>'; window.open(waUrl(txt),'_blank'); };
   if(OWNER_URL.indexOf('/exec')<0) return fail();
   $('fGo').disabled=true; m.className='msg'; m.textContent='بيتبعت…';
   fetch(OWNER_URL,{method:'POST',body:JSON.stringify(o),headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'})
-    .then(function(r){ return r.json(); }).then(function(d){ $('fGo').disabled=false; if(d && d.ok) done(); else fail(); })
+    .then(function(r){ return r.json(); }).then(function(d){ $('fGo').disabled=false;
+      if(d && d.ok) return done();
+      if(d && d.e==='taken'){ VDAY=''; loadSlots(); return bad('اليوم ده اتحجز حالًا — اختار يوم تاني'); }
+      if(d && (d.e==='day'||d.e==='data')) return bad('راجع البيانات واختار يوم من القايمة');
+      fail(); })
     .catch(function(){ $('fGo').disabled=false; fail(); });
 };
 </script>
