@@ -11,7 +11,7 @@
 <link rel="icon" href="icon-192.png">
 <script>
 /* ===== غيّر السطر ده بس: حط لينك موقع الاشتراكات بتاعك (اللي آخره /exec) بين العلامتين ' ' ===== */
-var OWNER_URL='https://script.google.com/macros/s/AKfycbycDtGGFLGnY2J9WESxrkpLzXtuGb1G14yXrNgZ1PzWVTpmyXAEsRLGG1VbPmhEtLEcjQ/exec';
+var OWNER_URL='PASTE_YOUR_EXEC_LINK_HERE';
 </script>
 <style>
 @font-face{font-family:Ar;src:url(ar-r.woff2) format('woff2');font-weight:400}
@@ -71,10 +71,11 @@ form{position:relative}
 body{overflow-x:hidden}
 .msg{margin-top:10px;font-weight:700}.msg.ok{color:var(--ok)}.msg.bad{color:#C0392B}
 
-.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:7px;max-height:250px;overflow:auto;padding:2px}
-.days button{border:1px solid var(--line);background:#F4F7FF;border-radius:12px;padding:7px 6px;font:inherit;font-size:13.5px;cursor:pointer;line-height:1.4}
-.days button b{display:block;font-size:14.5px}.days button small{color:var(--muted);font-size:12px}
-.days button.on{background:var(--pri);color:#fff;border-color:var(--pri)}.days button.on small{color:#DCE5FF}
+.days{max-height:300px;overflow:auto;padding:2px;border:1px solid var(--line);border-radius:12px}
+.dayr{display:flex;align-items:center;gap:8px;padding:7px 9px;border-bottom:1px solid var(--line);flex-wrap:wrap}.dayr:last-child{border:0}
+.dayr>b{min-width:112px;font-size:14px}.dayr>div{display:flex;gap:6px;flex-wrap:wrap}.dayr.full>b{color:#AAA}
+.days button{border:1px solid var(--line);background:#F4F7FF;border-radius:20px;padding:4px 11px;font:inherit;font-size:13px;cursor:pointer}
+.days button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
 .days button:disabled{background:#F1F1F1;color:#AAA;cursor:not-allowed;text-decoration:line-through}
 .meta2{font-size:12.5px;color:var(--muted);margin-top:5px}
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
@@ -183,15 +184,15 @@ footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-alig
   <div>
     <h2>جرّب ببلاش في عيادتك</h2>
     <p>من غير ما تدفع ولا جنيه: هنتواصل معاك، ونتفق على ميعاد، ونركّب البرنامج عندك تجرّبه على شغلك الحقيقي.</p>
-    <ul class="steps"><li>اختار يوم الزيارة واملا البيانات</li><li>هنكلمك على الواتساب نأكد الميعاد</li><li>نركّب ونعلّم الفريق، وتجرّب براحتك</li><li>لو عجبك، تختار الاشتراك اللي يناسبك</li></ul>
+    <ul class="steps"><li>اختار يوم وميعاد الزيارة واملا البيانات</li><li>هنكلمك على الواتساب نأكد الميعاد</li><li>نركّب ونعلّم الفريق، وتجرّب براحتك</li><li>لو عجبك، تختار الاشتراك اللي يناسبك</li></ul>
     <p style="margin-top:14px;color:#FFD27A;font-weight:700">📍 الزيارة مجانية في محافظة السويس بالكامل</p>
   </div>
   <form id="fm" autocomplete="on">
     <label>عايز إيه؟</label>
     <div class="kinds" id="kinds"><button type="button" class="on" data-k="تجربة مجانية">تجربة مجانية</button><button type="button" data-k="عايز أشترك">عايز أشترك</button><button type="button" data-k="استفسار">استفسار</button></div>
-    <div id="vBox"><label>اختار يوم الزيارة *</label>
+    <div id="vBox"><label>اختار يوم وميعاد الزيارة *</label>
       <div class="days" id="days"></div>
-      <div class="meta2">السبت للخميس من 7 مساءً · الجمعة من 7 صباحًا · الزيارة حوالي 4 ساعات · زيارة واحدة في اليوم</div></div>
+      <div class="meta2">الجمعة والسبت مواعيد طول اليوم · باقي الأيام من 7 مساءً · كل ميعاد لعميل واحد بس</div></div>
     <div class="f2">
       <div><label id="lC">اسم العيادة أو المركز *</label><input id="fC"></div>
       <div><label>رقم الموبايل (واتساب) *</label><input id="fP" required inputmode="tel" dir="ltr" autocomplete="tel"></div>
@@ -251,11 +252,14 @@ if(OWNER_URL.indexOf('/exec')>0){
 var KIND='تجربة مجانية', VDAY='', TAKEN=[];
 var DN=['الأحد','الاتنين','التلات','الأربع','الخميس','الجمعة','السبت'], MN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 function ymd(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+var VSLOTS={5:['7 ص – 11 ص','2 م – 5 م','5 م – 9 م','9 م – 12 بالليل'],6:['7 ص – 11 ص','11 ص – 2 م','2 م – 6 م','6 م – 10 م']};
+function slotsOf(d){ return VSLOTS[d.getDay()]||['7 م – 11 م']; }
 function drawDays(){
   var h='', d=new Date(); d.setHours(12,0,0,0);
-  for(var i=1;i<=21;i++){ d.setDate(d.getDate()+1*(i>0)); var k=ymd(d), fr=d.getDay()===5, tk=TAKEN.indexOf(k)>=0;
-    if(tk && VDAY===k) VDAY='';
-    h+='<button type="button" data-d="'+k+'"'+(tk?' disabled':'')+(VDAY===k?' class="on"':'')+'><b>'+DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+'</b><small>'+(tk?'محجوز':(fr?'7 ص – 11 ص':'7 م – 11 م'))+'</small></button>'; }
+  for(var i=1;i<=21;i++){ d.setDate(d.getDate()+1); var k=ymd(d), sl=slotsOf(d), free=0;
+    var bt=sl.map(function(t,j){ var key=k+'#'+j, tk=TAKEN.indexOf(key)>=0; if(tk&&VDAY===key) VDAY=''; if(!tk) free++;
+      return '<button type="button" data-d="'+key+'"'+(tk?' disabled':'')+(VDAY===key?' class="on"':'')+'>'+(tk?'محجوز':t)+'</button>'; }).join('');
+    h+='<div class="dayr'+(free?'':' full')+'"><b>'+DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+'</b><div>'+bt+'</div></div>'; }
   $('days').innerHTML=h;
   [].forEach.call(document.querySelectorAll('#days button'),function(b){ b.onclick=function(){ VDAY=b.getAttribute('data-d'); drawDays(); }; });
 }
@@ -273,22 +277,22 @@ function setKind(k){
 [].forEach.call(document.querySelectorAll('#kinds button'),function(b){ b.onclick=function(){ setKind(b.getAttribute('data-k')); }; });
 setKind('تجربة مجانية');
 $('fS').onchange=function(){ $('dW').style.display=this.value.indexOf('مركز')>=0?'':'none'; };
-function vLabel(k){ var d=new Date(k+'T12:00:00'); return DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+' · '+(d.getDay()===5?'7 ص – 11 ص':'7 م – 11 م'); }
+function vLabel(k){ var p=k.split('#'), d=new Date(p[0]+'T12:00:00'); return DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()]+' · '+slotsOf(d)[+p[1]||0]; }
 $('fm').onsubmit=function(e){
   e.preventDefault();
   var tr=KIND==='تجربة مجانية';
   var o={a:'lead',kind:KIND,name:$('fN').value.trim(),phone:$('fP').value.trim(),clinic:$('fC').value.trim(),sys:$('fS').value,gov:$('fG').value.trim(),
-         place:tr?$('fPl').value.trim():'',visit:tr?VDAY:'',docs:$('fD').value.trim(),plan:tr?'':$('fL').value,notes:$('fO').value.trim(),hp:$('fH').value,src:(location.search.match(/src=([^&]+)/)||[])[1]||'إعلان'};
+         place:tr?$('fPl').value.trim():'',visit:tr?VDAY.split('#')[0]:'',slot:tr?+(VDAY.split('#')[1]||0):0,docs:$('fD').value.trim(),plan:tr?'':$('fL').value,notes:$('fO').value.trim(),hp:$('fH').value,src:(location.search.match(/src=([^&]+)/)||[])[1]||'إعلان'};
   var m=$('fMsg'), bad=function(t){ m.className='msg bad'; m.textContent=t; };
-  if(tr && !o.visit) return bad('اختار يوم الزيارة');
+  if(tr && !o.visit) return bad('اختار يوم وميعاد الزيارة');
   if(tr && o.clinic.length<2) return bad('اكتب اسم العيادة أو المركز');
   if(!tr && o.clinic.length<2 && o.name.length<2) return bad('اكتب اسمك أو اسم العيادة');
   if(o.phone.replace(/\D/g,'').length<10) return bad('اكتب رقم موبايل صحيح');
   if(tr && o.gov.length<2) return bad('اكتب المحافظة');
   if(tr && o.place.length<3) return bad('اكتب العنوان');
   var txt=KIND+' — نظام العيادة\nالعيادة: '+o.clinic+(o.name?'\nالاسم: '+o.name:'')+'\nالموبايل: '+o.phone+'\nالمحافظة: '+o.gov+(o.place?'\nالعنوان: '+o.place:'')+
-    (o.visit?'\nميعاد الزيارة: '+vLabel(o.visit):'')+'\nالنظام: '+(o.sys||'مش متأكد')+(o.docs?' ('+o.docs+' دكتور)':'')+(o.plan?'\nالاشتراك: '+o.plan:'')+(o.notes?'\nملاحظات: '+o.notes:'');
-  var done=function(){ m.className='msg ok'; m.innerHTML='اتحجز ✓ '+(o.visit?'ميعادك '+vLabel(o.visit)+'. ':'')+'هنكلمك على الواتساب نأكد. <a href="'+waUrl(txt)+'" target="_blank">أو ابعتلنا دلوقتي</a>';
+    (o.visit?'\nميعاد الزيارة: '+vLabel(VDAY):'')+'\nالنظام: '+(o.sys||'مش متأكد')+(o.docs?' ('+o.docs+' دكتور)':'')+(o.plan?'\nالاشتراك: '+o.plan:'')+(o.notes?'\nملاحظات: '+o.notes:'');
+  var VKEY=VDAY; var done=function(){ m.className='msg ok'; m.innerHTML='اتحجز ✓ '+(o.visit?'ميعادك '+vLabel(VKEY)+'. ':'')+'هنكلمك على الواتساب نأكد. <a href="'+waUrl(txt)+'" target="_blank">أو ابعتلنا دلوقتي</a>';
     $('fm').reset(); $('fG').value='السويس'; VDAY=''; loadSlots(); };
   var fail=function(){ m.className='msg ok'; m.innerHTML='كمّل الطلب على الواتساب: <a href="'+waUrl(txt)+'" target="_blank"><b>اضغط هنا</b></a>'; window.open(waUrl(txt),'_blank'); };
   if(OWNER_URL.indexOf('/exec')<0) return fail();
@@ -296,7 +300,7 @@ $('fm').onsubmit=function(e){
   fetch(OWNER_URL,{method:'POST',body:JSON.stringify(o),headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'})
     .then(function(r){ return r.json(); }).then(function(d){ $('fGo').disabled=false;
       if(d && d.ok) return done();
-      if(d && d.e==='taken'){ VDAY=''; loadSlots(); return bad('اليوم ده اتحجز حالًا — اختار يوم تاني'); }
+      if(d && d.e==='taken'){ VDAY=''; loadSlots(); return bad('الميعاد ده اتحجز حالًا — اختار ميعاد تاني'); }
       if(d && (d.e==='day'||d.e==='data')) return bad('راجع البيانات واختار يوم من القايمة');
       fail(); })
     .catch(function(){ $('fGo').disabled=false; fail(); });
