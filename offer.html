@@ -11,7 +11,7 @@
 <link rel="icon" href="icon-192.png">
 <script>
 /* ===== غيّر السطر ده بس: حط لينك موقع الاشتراكات بتاعك (اللي آخره /exec) بين العلامتين ' ' ===== */
-var OWNER_URL='https://script.google.com/macros/s/AKfycbycDtGGFLGnY2J9WESxrkpLzXtuGb1G14yXrNgZ1PzWVTpmyXAEsRLGG1VbPmhEtLEcjQ/exec';
+var OWNER_URL='PASTE_YOUR_EXEC_LINK_HERE';
 </script>
 <style>
 @font-face{font-family:Ar;src:url(ar-r.woff2) format('woff2');font-weight:400}
@@ -181,6 +181,8 @@ footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-alig
 <a class="fab wa" href="#" aria-label="واتساب">💬</a>
 
 <script>
+/* لو الصور اترفعت برّه فولدر img جرّب من غيره */
+[].forEach.call(document.images,function(im){ im.addEventListener("error",function(){ if(im.src.indexOf("/img/")>=0 && !im.dataset.r){ im.dataset.r=1; im.src=im.src.replace("/img/","/"); } }); if(im.complete && !im.naturalWidth && im.src.indexOf("/img/")>=0){ im.dataset.r=1; im.src=im.src.replace("/img/","/"); } });
 var WA='201070500442';
 var PK=[{id:'1',name:'دكتور فقط'},{id:'2',name:'استقبال + دكتور'},{id:'3',name:'استقبال فقط'},{id:'4',name:'مركز (عدة دكاترة)'}];
 var PL=[{id:'2',name:'شهري',m:1},{id:'3',name:'٣ شهور',m:3},{id:'4',name:'سنوي',m:12},{id:'5',name:'دائم',m:0}];
