@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نظام العيادة — EasyLife Tec</title>
+<meta name="description" content="برنامج إدارة العيادات والمراكز الطبية: الدور، الكشف والروشتة، الحسابات، التقارير، متابعة من الموبايل وحجز أونلاين. تجربة مجانية بالتركيب عندك.">
+<meta property="og:title" content="نظام العيادة — EasyLife Tec">
+<meta property="og:description" content="نظّم عيادتك أو مركزك من أول الحجز لحد الحسابات. تجربة مجانية بالتركيب عندك.">
+<meta property="og:image" content="img/queue.jpg">
+<link rel="icon" href="icon-192.png">
+<script>
+/* ===== غيّر السطر ده بس: حط لينك موقع الاشتراكات بتاعك (اللي آخره /exec) بين العلامتين ' ' ===== */
+var OWNER_URL='https://script.google.com/macros/s/AKfycbycDtGGFLGnY2J9WESxrkpLzXtuGb1G14yXrNgZ1PzWVTpmyXAEsRLGG1VbPmhEtLEcjQ/exec';
+</script>
+<style>
+@font-face{font-family:Ar;src:url(ar-r.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Ar;src:url(ar-b.woff2) format('woff2');font-weight:700}
+:root{--pri:#1A3A8F;--pri2:#2B5FD9;--gold:#C8962E;--ink:#1E2A3B;--muted:#5D6B80;--bg:#F5F7FC;--line:#E2E7F0;--ok:#1F8A54}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Ar,Tahoma,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;font-size:16px}
+a{color:inherit}
+.w{max-width:1100px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#0F2463,#1A3A8F 55%,#2B5FD9);color:#fff;padding:18px 0 56px;position:relative;overflow:hidden}
+header:after{content:'';position:absolute;inset:auto -10% -60px -10%;height:120px;background:var(--bg);border-radius:50% 50% 0 0}
+.nav{display:flex;align-items:center;gap:10px}.nav b{font-size:19px}.nav .sp{flex:1}
+.nav a{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:30px;text-decoration:none;font-size:14px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;margin-top:30px;position:relative;z-index:1}
+.hero h1{font-size:38px;line-height:1.35;font-weight:700}.hero h1 span{color:#FFD27A}
+.hero p{opacity:.92;margin:14px 0 22px;font-size:17.5px}
+.hero img{width:100%;border-radius:16px;box-shadow:0 25px 60px rgba(0,0,0,.35);border:4px solid rgba(255,255,255,.15)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:40px;padding:12px 24px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;font-size:16px}
+.b1{background:#FFD27A;color:#3A2700}.b2{background:#25D366;color:#fff}.b3{background:var(--pri);color:#fff}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.tags span{background:rgba(255,255,255,.13);border-radius:30px;padding:4px 13px;font-size:13.5px}
+section{padding:46px 0}
+h2{font-size:28px;text-align:center;margin-bottom:6px}.sub{text-align:center;color:var(--muted);margin-bottom:28px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:22px;box-shadow:0 6px 24px rgba(20,40,90,.06)}
+.feat:nth-child(even) .im{order:2}
+.feat .im img{width:100%;border-radius:14px;border:1px solid var(--line);display:block}
+.feat .im.ph{display:flex;gap:12px;justify-content:center}.feat .im.ph img{width:46%;border-radius:18px}
+.feat h3{font-size:22px;margin-bottom:6px}.feat h3 i{font-style:normal;margin-inline-end:6px}
+.feat ul{list-style:none;margin-top:8px}.feat li{padding:4px 0;padding-inline-start:26px;position:relative}
+.feat li:before{content:'✓';position:absolute;inset-inline-start:0;color:var(--ok);font-weight:700}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.why div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.why b{display:block;font-size:17px;margin-bottom:4px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.who div{border-radius:20px;padding:22px;color:#fff}.who .c1{background:linear-gradient(135deg,#1A3A8F,#2B5FD9)}.who .c2{background:linear-gradient(135deg,#8A5A12,#C8962E)}
+.who h3{font-size:21px;margin-bottom:6px}.who li{margin-inline-start:20px;padding:2px 0}
+.tw{overflow-x:auto;background:#fff;border-radius:20px;border:1px solid var(--line);box-shadow:0 6px 24px rgba(20,40,90,.06)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:14px 12px;text-align:center;border-bottom:1px solid var(--line)}
+th{background:#EEF2FD;font-size:15px}td:first-child,th:first-child{text-align:right;font-weight:700}
+td b{font-size:19px;display:block}td small{color:var(--muted);font-size:12.5px}
+td.best{background:#FFF8E6}
+.note{text-align:center;color:var(--muted);margin-top:12px;font-size:14.5px}
+.free{background:linear-gradient(135deg,#0F2463,#1A3A8F);color:#fff;border-radius:26px;padding:30px;display:grid;grid-template-columns:.9fr 1.1fr;gap:28px}
+.free h2{text-align:right;color:#FFD27A}.free p{opacity:.92}
+.steps{list-style:none;margin-top:14px;counter-reset:s}.steps li{counter-increment:s;padding:6px 0;padding-inline-start:40px;position:relative}
+.steps li:before{content:counter(s);position:absolute;inset-inline-start:0;top:6px;width:28px;height:28px;border-radius:50%;background:#FFD27A;color:#3A2700;text-align:center;line-height:28px;font-weight:700}
+form{background:#fff;color:var(--ink);border-radius:20px;padding:20px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:13.5px;font-weight:700;color:var(--muted);margin:6px 0 3px}
+input,select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#FAFBFE;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--pri2);background:#fff}
+.kinds{display:flex;gap:6px;flex-wrap:wrap}.kinds button{border:1px solid var(--line);background:#fff;border-radius:30px;padding:7px 14px;font:inherit;cursor:pointer}
+.kinds button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.hp{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none;border:0;padding:0}
+form{position:relative}
+body{overflow-x:hidden}
+.msg{margin-top:10px;font-weight:700}.msg.ok{color:var(--ok)}.msg.bad{color:#C0392B}
+footer{background:#0F1B3D;color:#C8D2E8;padding:26px 0;margin-top:30px;text-align:center;font-size:14.5px}
+.fab{position:fixed;bottom:18px;left:18px;z-index:9;background:#25D366;color:#fff;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25);text-decoration:none;font-size:28px}
+@media(max-width:820px){.hero,.feat,.who,.free{grid-template-columns:1fr}.feat:nth-child(even) .im{order:0}.why{grid-template-columns:1fr}.hero h1{font-size:29px}.f2{grid-template-columns:1fr}h2{font-size:24px}}
+</style>
+</head>
+<body>
+<header><div class="w">
+  <div class="nav"><b>EasyLife Tec</b><span class="sp"></span><a href="#prices">الأسعار</a><a href="#free">تجربة مجانية</a></div>
+  <div class="hero">
+    <div>
+      <h1>عيادتك أو مركزك<br>متنظّمين <span>من أول الحجز لحد الحسابات</span></h1>
+      <p>برنامج عربي على ويندوز بيشتغل من غير نت جوه العيادة: الدور، الكشف والروشتة، الشركات، حسابات الدكاترة والتقارير. وكمان متابعة من الموبايل وحجز أونلاين للمرضى.</p>
+      <div class="btns"><a class="btn b1" href="#free">اطلب تجربة مجانية</a><a class="btn b2 wa" href="#">💬 كلمنا واتساب</a></div>
+      <div class="tags"><span>✔ بيشتغل من غير نت</span><span>✔ ويندوز 7 و10 و11</span><span>✔ التركيب والتدريب علينا</span><span>✔ دعم فني</span></div>
+    </div>
+    <img src="img/queue.jpg" alt="شاشة الدور في نظام العيادة">
+  </div>
+</div></header>
+
+<section><div class="w">
+  <h2>كل اللي العيادة محتاجاه في برنامج واحد</h2>
+  <p class="sub">صور حقيقية من البرنامج</p>
+
+  <div class="feat"><div class="im"><img src="img/queue.jpg" alt="الدور" loading="lazy"></div><div>
+    <h3><i>🔢</i>الدور من غير زحمة ولا خناق</h3>
+    <p>السكرتيرة بتسجّل الحجز والحضور، والدكتور شايف مين جوه ومين عليه الدور على جهازه في نفس اللحظة.</p>
+    <ul><li>بأسبقية الحجز أو الحضور، أو بالتناوب بين الكشف والاستشارة</li><li>الحالات الفورية بتدخل الأول</li><li>«قدامك قد إيه» للمريض اللي بيسأل</li></ul></div></div>
+
+  <div class="feat"><div class="im"><img src="img/visit.jpg" alt="الكشف والروشتة" loading="lazy"></div><div>
+    <h3><i>🩺</i>الكشف والروشتة في دقيقة</h3>
+    <p>ملف لكل مريض فيه كل زياراته وتشخيصاته وأدويته، وروشتة مطبوعة باسم العيادة وشعارها.</p>
+    <ul><li>أدوية وتحاليل جاهزة تختار منها</li><li>ميعاد المتابعة بيتسجل لوحده</li><li>تنبيه بالحساسية والأمراض المزمنة</li></ul></div></div>
+
+  <div class="feat"><div class="im"><img src="img/extra.jpg" alt="خدمات إضافية" loading="lazy"></div><div>
+    <h3><i>💵</i>كل جنيه متسجل</h3>
+    <p>الكشف والخدمات الإضافية اللي الدكتور بيطلبها جوه الكشف بتوصل للسكرتيرة تحصّلها، والمريض بيرجع لدوره.</p>
+    <ul><li>كاش وفيزا وإنستاباي ومحفظة</li><li>تقفيل يومي بالإيراد</li><li>مفيش فلوس بتتوه</li></ul></div></div>
+
+  <div class="feat"><div class="im"><img src="img/ins.jpg" alt="شركات التأمين" loading="lazy"></div><div>
+    <h3><i>🏢</i>شركات التأمين والتعاقدات</h3>
+    <p>نسبة الشركة ونسبة المريض بتتحسب لوحدها، وتعرف مستحقاتك عند كل شركة في أي وقت.</p></div></div>
+
+  <div class="feat"><div class="im"><img src="img/dues.jpg" alt="حسابات الدكاترة" loading="lazy"></div><div>
+    <h3><i>👨‍⚕️</i>للمراكز: حسابات كل دكتور</h3>
+    <p>نسبة كل دكتور من كل خدمة، وكشف حساب جاهز في آخر الشهر من غير آلة حاسبة.</p>
+    <ul><li>جدول أسبوعي لمواعيد الدكاترة</li><li>كل دكتور بيشوف مرضاه هو بس</li><li>مدير المركز شايف كل حاجة</li></ul></div></div>
+
+  <div class="feat"><div class="im"><img src="img/reports.jpg" alt="التقارير" loading="lazy"></div><div>
+    <h3><i>📊</i>تقارير بالرسومات</h3>
+    <p>الإيراد بالشهر، وأكتر الأيام والساعات زحمة، وأكتر الخدمات طلبًا، ونسبة اللي ما حضروش.</p></div></div>
+
+  <div class="feat"><div class="im ph"><img src="img/follow.jpg" alt="المتابعة من الموبايل" loading="lazy"><img src="img/book.jpg" alt="الحجز الأونلاين" loading="lazy"></div><div>
+    <h3><i>📱</i>العيادة في جيبك</h3>
+    <p>الدكتور والمدير بيتابعوا حجوزات النهارده والإيراد من الموبايل، من أي مكان، بباسورد.</p>
+    <ul><li>صفحة حجز أونلاين للمرضى</li><li>كل دكتور في المركز ليه لينك لوحده</li></ul></div></div>
+</div></section>
+
+<section style="background:#fff"><div class="w">
+  <h2>مين يناسبه؟</h2><p class="sub">نفس البرنامج، وبتختار النظام اللي على قدّك</p>
+  <div class="who">
+    <div class="c1"><h3>🏥 المراكز الطبية</h3><ul><li>كذا دكتور وكذا تخصص</li><li>استقبال واحد لكل الدكاترة</li><li>نسب وحسابات كل دكتور</li><li>مدير بيشوف كل حاجة</li></ul></div>
+    <div class="c2"><h3>👩‍⚕️ العيادة الخاصة</h3><ul><li>دكتور واحد مع استقبال، أو دكتور لوحده</li><li>الدور والروشتة والحسابات</li><li>متابعة العيادة من الموبايل</li><li>أوفر من أي سيستم تاني</li></ul></div>
+  </div>
+  <h2 style="margin-top:36px">ليه نظامنا؟</h2>
+  <div class="why" style="margin-top:16px">
+    <div><b>⚡ من غير نت</b>بيشتغل على شبكة العيادة، فلو النت فصل الشغل مابيقفش.</div>
+    <div><b>🔒 بياناتك عندك</b>البيانات على أجهزة العيادة، مش على سيرفر حد تاني.</div>
+    <div><b>🇪🇬 عربي ومصري</b>مكتوب بلغة السكرتيرة والدكتور، ومن غير تعقيد.</div>
+    <div><b>🛠 تركيب وتدريب</b>بنركّب ونظبط ونعلّم الفريق في العيادة.</div>
+    <div><b>💻 أي جهاز</b>بيشتغل من ويندوز 7 لحد 11.</div>
+    <div><b>📞 دعم فني</b>على الواتساب والإيميل.</div>
+  </div>
+</div></section>
+
+<section id="prices"><div class="w">
+  <h2>الأسعار</h2><p class="sub">اختار النظام ومدة الاشتراك — والتجربة الأولى مجانًا</p>
+  <div class="tw"><table id="pt"></table></div>
+  <p class="note">الاشتراك الدائم بيتدفع مرة واحدة · التقسيط من غير فوايد متاح · التجربة المجانية بالتركيب عندك ومن غير ما تدفع أي حاجة</p>
+</div></section>
+
+<section id="free"><div class="w"><div class="free">
+  <div>
+    <h2>جرّب ببلاش في عيادتك</h2>
+    <p>من غير ما تدفع ولا جنيه: هنتواصل معاك، ونتفق على ميعاد، ونركّب البرنامج عندك تجرّبه على شغلك الحقيقي.</p>
+    <ul class="steps"><li>املا البيانات دي</li><li>هنكلمك على الواتساب ونحدد ميعاد</li><li>نركّب ونعلّم الفريق، وتجرّب براحتك</li><li>لو عجبك، تختار الاشتراك اللي يناسبك</li></ul>
+    <p style="margin-top:14px;color:#FFD27A;font-weight:700">📍 الزيارة مجانية في محافظة السويس بالكامل</p>
+  </div>
+  <form id="fm" autocomplete="on">
+    <label>عايز إيه؟</label>
+    <div class="kinds" id="kinds"><button type="button" class="on" data-k="تجربة مجانية">تجربة مجانية</button><button type="button" data-k="عايز أشترك">عايز أشترك</button><button type="button" data-k="استفسار">استفسار</button></div>
+    <div class="f2">
+      <div><label>اسمك *</label><input id="fN" required autocomplete="name"></div>
+      <div><label>رقم الموبايل (واتساب) *</label><input id="fP" required inputmode="tel" dir="ltr" autocomplete="tel"></div>
+      <div><label>اسم العيادة أو المركز</label><input id="fC"></div>
+      <div><label>النظام</label><select id="fS"><option value="">— مش متأكد —</option></select></div>
+      <div><label>المحافظة</label><input id="fG" list="govs" value="السويس"><datalist id="govs"></datalist></div>
+      <div><label>المنطقة</label><input id="fA"></div>
+      <div id="dW" style="display:none"><label>عدد الدكاترة</label><input id="fD" inputmode="numeric"></div>
+      <div><label>مدة الاشتراك اللي مهتم بيها</label><select id="fL"><option value="">— لسه —</option></select></div>
+    </div>
+    <label>ملاحظات</label><textarea id="fO" rows="2" placeholder="مثلًا: أنسب ميعاد للزيارة"></textarea>
+    <input class="hp" id="fH" tabindex="-1" autocomplete="off">
+    <button class="btn b3" style="width:100%;justify-content:center;margin-top:12px" id="fGo">ابعت الطلب</button>
+    <div class="msg" id="fMsg"></div>
+  </form>
+</div></div></section>
+
+<footer><div class="w">EasyLife Tec · واتساب <span dir="ltr">01070500442</span> · <span dir="ltr">EasyLifeTec1995@gmail.com</span></div></footer>
+<a class="fab wa" href="#" aria-label="واتساب">💬</a>
+
+<script>
+var WA='201070500442';
+var PK=[{id:'1',name:'دكتور فقط'},{id:'2',name:'استقبال + دكتور'},{id:'3',name:'استقبال فقط'},{id:'4',name:'مركز (عدة دكاترة)'}];
+var PL=[{id:'2',name:'شهري',m:1},{id:'3',name:'٣ شهور',m:3},{id:'4',name:'سنوي',m:12},{id:'5',name:'دائم',m:0}];
+var PR={'1_2':800,'1_3':2250,'1_4':8400,'1_5':15000,'2_2':900,'2_3':2550,'2_4':9600,'2_5':20000,'3_2':800,'3_3':2250,'3_4':8400,'3_5':15000,'4_2':1300,'4_3':3750,'4_4':14400,'4_5':30000};
+var GOVS=['السويس','القاهرة','الجيزة','الإسكندرية','القليوبية','الشرقية','الدقهلية','الغربية','المنوفية','البحيرة','كفر الشيخ','دمياط','بورسعيد','الإسماعيلية','الفيوم','بني سويف','المنيا','أسيوط','سوهاج','قنا','الأقصر','أسوان','البحر الأحمر','الوادي الجديد','مطروح','شمال سيناء','جنوب سيناء'];
+function $(i){ return document.getElementById(i); }
+function n(v){ return Math.round(v).toLocaleString('en-US'); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function waUrl(t){ return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t); }
+[].forEach.call(document.querySelectorAll('.wa'),function(a){ a.href=waUrl('أهلًا، شفت إعلان نظام العيادة وعايز أعرف تفاصيل أكتر'); a.target='_blank'; });
+function drawPrices(){
+  var h='<tr><th>النظام</th>'+PL.map(function(p){ return '<th>'+esc(p.name)+'</th>'; }).join('')+'</tr>';
+  h+=PK.map(function(k){ return '<tr><td>'+esc(k.name)+'</td>'+PL.map(function(p){ var v=PR[k.id+'_'+p.id];
+    if(!v) return '<td>—</td>';
+    var per=p.m>1? '<small>يعني '+n(v/p.m)+' ج في الشهر</small>' : p.m===0? '<small>مرة واحدة</small>' : '<small>كل شهر</small>';
+    return '<td'+(p.m===0?' class="best"':'')+'><b>'+n(v)+' ج</b>'+per+'</td>'; }).join('')+'</tr>'; }).join('');
+  $('pt').innerHTML=h;
+  $('fS').innerHTML='<option value="">— مش متأكد —</option>'+PK.map(function(k){ return '<option>'+esc(k.name)+'</option>'; }).join('');
+  $('fL').innerHTML='<option value="">— لسه —</option>'+PL.map(function(p){ return '<option>'+esc(p.name)+'</option>'; }).join('');
+}
+drawPrices();
+$('govs').innerHTML=GOVS.map(function(g){ return '<option value="'+g+'">'; }).join('');
+/* الأسعار الحالية من موقع الاشتراكات (لو اتغيرت هناك تتغير هنا لوحدها) */
+if(OWNER_URL.indexOf('/exec')>0){
+  fetch(OWNER_URL+'?a=prices',{redirect:'follow'}).then(function(r){ return r.json(); }).then(function(d){
+    if(!d || !d.pkgs || !d.pkgs.length) return;
+    PK=d.pkgs; var m={'شهري':1,'٣ شهور':3,'سنوي':12,'دائم':0};
+    var pl=d.plans.filter(function(p){ return p.name in m; }).map(function(p){ return {id:p.id,name:p.name,m:m[p.name]}; });
+    if(pl.length) PL=pl; if(Object.keys(d.p||{}).length>=4) PR=d.p; drawPrices(); }).catch(function(){});
+}
+var KIND='تجربة مجانية';
+[].forEach.call(document.querySelectorAll('#kinds button'),function(b){ b.onclick=function(){
+  KIND=b.getAttribute('data-k'); [].forEach.call(document.querySelectorAll('#kinds button'),function(x){ x.classList.toggle('on',x===b); }); }; });
+$('fS').onchange=function(){ $('dW').style.display=this.value.indexOf('مركز')>=0?'':'none'; };
+$('fm').onsubmit=function(e){
+  e.preventDefault();
+  var o={a:'lead',kind:KIND,name:$('fN').value.trim(),phone:$('fP').value.trim(),clinic:$('fC').value.trim(),sys:$('fS').value,gov:$('fG').value.trim(),area:$('fA').value.trim(),
+         docs:$('fD').value.trim(),plan:$('fL').value,notes:$('fO').value.trim(),hp:$('fH').value,src:(location.search.match(/src=([^&]+)/)||[])[1]||'إعلان'};
+  var m=$('fMsg');
+  if(o.name.length<2){ m.className='msg bad'; m.textContent='اكتب اسمك'; return; }
+  if(o.phone.replace(/\D/g,'').length<10){ m.className='msg bad'; m.textContent='اكتب رقم موبايل صحيح'; return; }
+  var txt=KIND+' — نظام العيادة\nالاسم: '+o.name+'\nالعيادة: '+o.clinic+'\nالموبايل: '+o.phone+'\nالمكان: '+o.gov+' '+o.area+'\nالنظام: '+(o.sys||'مش متأكد')+(o.docs?' ('+o.docs+' دكتور)':'')+'\nالاشتراك: '+(o.plan||'لسه')+(o.notes?'\nملاحظات: '+o.notes:'');
+  var done=function(){ m.className='msg ok'; m.innerHTML='وصلنا طلبك ✓ هنكلمك على الواتساب قريب. <a href="'+waUrl(txt)+'" target="_blank">أو ابعتلنا دلوقتي على الواتساب</a>';
+    $('fm').reset(); $('fG').value='السويس'; };
+  var fail=function(){ m.className='msg ok'; m.innerHTML='كمّل الطلب على الواتساب: <a href="'+waUrl(txt)+'" target="_blank"><b>اضغط هنا</b></a>'; window.open(waUrl(txt),'_blank'); };
+  if(OWNER_URL.indexOf('/exec')<0) return fail();
+  $('fGo').disabled=true; m.className='msg'; m.textContent='بيتبعت…';
+  fetch(OWNER_URL,{method:'POST',body:JSON.stringify(o),headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'})
+    .then(function(r){ return r.json(); }).then(function(d){ $('fGo').disabled=false; if(d && d.ok) done(); else fail(); })
+    .catch(function(){ $('fGo').disabled=false; fail(); });
+};
+</script>
+</body>
+</html>
