@@ -135,10 +135,12 @@ svg.ch .vl{fill:var(--ink2);font-size:10px;font-weight:700;font-family:inherit}
 'use strict';
 /* ---------- where the clinic's data lives ---------- */
 var qs=location.search.match(/[?&]s=([A-Za-z0-9_-]{20,})/), S;
-try{ if(qs){ S=qs[1]; localStorage.setItem('fs',S); } else S=localStorage.getItem('fs'); }catch(e){ S=qs&&qs[1]; }
+var qd=location.search.match(/[?&]d=(\d{1,3})/), D='';
+try{ if(qs){ S=qs[1]; D=qd?qd[1]:''; localStorage.setItem('fs',S); localStorage.setItem('fsd',D); } else { S=localStorage.getItem('fs'); D=localStorage.getItem('fsd')||''; } }catch(e){ S=qs&&qs[1]; D=qd?qd[1]:''; }
+var SK=S+(D?':'+D:'');      /* each doctor's link signs in on its own, even on the same phone */
 var EXEC = S ? 'https://script.google.com/macros/s/'+S+'/exec' : '';
-var TK=''; try{ TK=localStorage.getItem('ft:'+S)||''; }catch(e){}
-var CL={name:'',doctor:'',sex:'f'}; try{ CL=JSON.parse(localStorage.getItem('fc:'+S))||CL; }catch(e){}
+var TK=''; try{ TK=localStorage.getItem('ft:'+SK)||''; }catch(e){}
+var CL={name:'',doctor:'',sex:'f'}; try{ CL=JSON.parse(localStorage.getItem('fc:'+SK))||CL; }catch(e){}
 var $=function(id){ return document.getElementById(id); };
 var esc=function(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
 var M=function(m,f){ return CL.sex==='m'?m:f; };              /* wording follows دكتور / دكتورة */
@@ -150,16 +152,17 @@ var DAYS=['الأحد','الاتنين','التلات','الأربع','الخم�
 var ST={wait:'حاجز',here:'حاضر','in':'جوه',done:'خرج',no:'ما حضرش',pp:'اتأجل',cx:'ملغي'};
 var ERR={net:'مفيش نت أو جوجل مش بيرد — جرّب تاني',bad:'الباسورد غلط',locked:'محاولات كتير غلط — استنى ربع ساعة',
   short:'الباسورد لازم ٤ حروف أو أرقام على الأقل',haspw:'فيه باسورد متعمل قبل كده',nopw:'لسه مفيش باسورد',busy:'الشيت مشغول، جرّب كمان شوية',
-  months:'اختار شهر واحد على الأقل',year:'السنة مش مظبوطة',none:'المريض مش موجود',err:'حصلت مشكلة في الشيت'};
+  months:'اختار شهر واحد على الأقل',year:'السنة مش مظبوطة',none:'المريض مش موجود',err:'حصلت مشكلة في الشيت',nodr:'اللينك ده مش لدكتور موجود — اطلب اللينك الصح من المركز',role:'المسح للمدير بس'};
 
 function toast(t){ var e=$('toast'); e.textContent=t; e.className='toast on'; clearTimeout(e._t); e._t=setTimeout(function(){ e.className='toast'; },2200); }
 function call(o,cb){
   if(TK) o.t=TK;
+  if(D) o.d=D;
   var done=false, tm=setTimeout(function(){ if(!done){ done=true; cb({ok:0,e:'net'}); } },40000);
   fetch(EXEC,{method:'POST',body:JSON.stringify(o),headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'})
     .then(function(r){ return r.json(); })
     .then(function(d){ if(done) return; done=true; clearTimeout(tm);
-      if(d && d.e==='auth'){ TK=''; try{ localStorage.removeItem('ft:'+S); }catch(e){} hello(); return; }
+      if(d && d.e==='auth'){ TK=''; try{ localStorage.removeItem('ft:'+SK); }catch(e){} hello(); return; }
       cb(d||{ok:0,e:'err'}); })
     .catch(function(){ if(done) return; done=true; clearTimeout(tm); cb({ok:0,e:'net'}); });
 }
@@ -181,8 +184,9 @@ function setHead(){
   $('hName').textContent=CL.name||'متابعة العيادة';
   $('hSub').textContent=CL.center? 'متابعة المدير — كل الدكاترة' : (CL.doctor||'');
   document.title=(CL.name||'متابعة العيادة');
+  var wb=document.querySelector('[data-p=wipe]'); if(wb) wb.style.display=D?'none':'';   /* wiping old months is the manager's */
 }
-function saveCL(c){ if(!c) return; CL=c; try{ localStorage.setItem('fc:'+S,JSON.stringify(c)); }catch(e){} setHead(); }
+function saveCL(c){ if(!c) return; CL=c; try{ localStorage.setItem('fc:'+SK,JSON.stringify(c)); }catch(e){} setHead(); }
 
 /* ---------- lock screen ---------- */
 function lockScr(html){ $('app').classList.add('hide'); var l=$('lock'); l.classList.remove('hide');
@@ -209,7 +213,7 @@ function hello(){
       call({a:first?'setpw':'login',pw:p1},function(r){
         b.disabled=false;
         if(!r.ok){ $('pe').textContent=ERR[r.e]||ERR.err; return; }
-        TK=r.t; try{ localStorage.setItem('ft:'+S,TK); }catch(e){}
+        TK=r.t; try{ localStorage.setItem('ft:'+SK,TK); }catch(e){}
         start();
       });
     };
