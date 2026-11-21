@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2F6F8F">
+<title>احجز ميعادك</title>
+<link rel="icon" href="icon-192.png">
+<style>
+@font-face{font-family:Ar;src:url(ar-r.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Ar;src:url(ar-b.woff2) format('woff2');font-weight:700;font-display:swap}
+:root{--bg:#EEF4F7;--card:#fff;--ink:#1F3340;--muted:#6A7F8C;--line:#DCE6EC;--pri:#2F6F8F;--pri2:#1F5270;--soft:#E6F0F5;--ok:#2E7D4F;--okbg:#E4F3EA;--warn:#A86A0B;--warnbg:#FFF2D9;--bad:#B03A2E;--badbg:#FBE7E4}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:Ar,'Segoe UI',Tahoma,Arial,sans-serif;font-size:15.5px;line-height:1.65;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+.hide{display:none!important}
+header{background:linear-gradient(135deg,var(--pri2),var(--pri));color:#fff;padding:calc(18px + env(safe-area-inset-top)) 18px 22px;text-align:center}
+header img{width:54px;height:54px;border-radius:14px;background:#fff;padding:4px;margin-bottom:6px}
+header h1{font-size:20px}header p{opacity:.88;font-size:13.5px}
+.wrap{max-width:520px;margin:-12px auto 0;padding:0 14px 30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 3px 14px rgba(31,51,64,.06)}
+.card h2{font-size:16px;margin-bottom:10px}
+label.l{display:block;font-weight:700;font-size:13.5px;color:var(--muted);margin:10px 0 5px}
+input,select,textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--pri)}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:13px;padding:9px 10px;background:#fff;cursor:pointer;text-align:center}
+.opt b{display:block;font-size:14.5px}.opt small{color:var(--muted);font-size:12px}
+.opt.on{border-color:var(--pri);background:var(--soft);box-shadow:0 0 0 2px var(--pri) inset}
+.btn{width:100%;border:0;border-radius:14px;padding:13px;background:var(--pri);color:#fff;font-weight:700;font-size:16px;cursor:pointer;margin-top:14px}
+.btn:disabled{opacity:.5}.btn.out{background:#fff;color:var(--pri);border:1.5px solid var(--pri)}
+.err{color:var(--bad);font-size:14px;min-height:20px;margin-top:8px}
+.meta{color:var(--muted);font-size:13px}
+.done{text-align:center;padding:24px 16px}.done .ic{font-size:46px}
+.tr{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.tr:last-child{border:0}
+.pill{border-radius:99px;padding:2px 11px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.p-new{background:var(--warnbg);color:var(--warn)}.p-ok{background:var(--okbg);color:var(--ok)}.p-no{background:var(--badbg);color:var(--bad)}
+.ld{text-align:center;color:var(--muted);padding:30px}
+.note{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><img src="icon-192.png" alt=""><h1 id="hN">احجز ميعادك</h1><p id="hS"></p></header>
+<div class="wrap">
+  <div id="main" class="card"><div class="ld">جاري التحميل…</div></div>
+  <div class="card"><h2>تابع حجزك</h2><p class="meta">اكتب رقم تليفونك اللي حجزت بيه وشوف رد العيادة.</p>
+    <input id="tP" inputmode="tel" class="ltr" placeholder="01xxxxxxxxx" style="direction:ltr;text-align:right;margin-top:8px">
+    <button class="btn out" id="tGo">شوف حالة الحجز</button><div id="tOut"></div></div>
+</div>
+<script>
+(function(){
+var qs=location.search.match(/[?&]s=([A-Za-z0-9_-]{20,})/), S=qs?qs[1]:'';
+var EXEC=S? 'https://script.google.com/macros/s/'+S+'/exec' : '';
+var $=function(id){ return document.getElementById(id); };
+var esc=function(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+var DAYS=['الأحد','الاتنين','التلات','الأربع','الخميس','الجمعة','السبت'], MON=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+var ERR={off:'الحجز الأونلاين مقفول دلوقتي',name:'اكتب الاسم بالكامل',phone:'رقم التليفون لازم ١١ رقم ويبدأ بـ 01',dr:'اختار الدكتور',date:'اختار يوم من الأيام المتاحة',
+  svc:'اختار الخدمة',many:'عملت طلبات كتير — كلّم العيادة',dup:'إنت حاجز في اليوم ده قبل كده — استنى رد العيادة',busy:'جرّب تاني بعد شوية',net:'مفيش نت أو الصفحة مش بترد — جرّب تاني'};
+function call(o,cb){
+  var done=false, t=setTimeout(function(){ if(!done){ done=true; cb({ok:0,e:'net'}); } },40000);
+  fetch(EXEC,{method:'POST',body:JSON.stringify(o),headers:{'Content-Type':'text/plain;charset=utf-8'}})
+    .then(function(r){ return r.json(); }).then(function(d){ if(done) return; done=true; clearTimeout(t); cb(d||{ok:0,e:'net'}); })
+    .catch(function(){ if(done) return; done=true; clearTimeout(t); cb({ok:0,e:'net'}); });
+}
+function dl(ds){ var p=ds.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]); return DAYS[d.getDay()]+' '+(+p[2])+' '+MON[+p[1]-1]; }
+function tl(t){ var m=String(t||'').match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/); if(!m) return '';
+  var f=function(h,mi){ h=+h; return (h%12||12)+(mi!=='00'?':'+mi:'')+(h<12?' ص':' م'); }; return 'من '+f(m[1],m[2])+' لـ '+f(m[3],m[4]); }
+var INFO=null, PICK={dr:'',svc:'',date:''};
+try{ $('tP').value=localStorage.getItem('obph')||''; }catch(e){}
+if(!EXEC){ $('main').innerHTML='<div class="done"><div class="ic">🔗</div><b>الرابط ناقص</b><p class="meta">افتح الصفحة من الرابط اللي العيادة بعتته كامل.</p></div>'; return; }
+call({a:'obinfo'},function(d){
+  if(!d.ok){ $('main').innerHTML='<div class="done"><b>'+esc(ERR[d.e]||ERR.net)+'</b></div>'; return; }
+  INFO=d; var cl=d.cl||{};
+  $('hN').textContent=cl.name||'احجز ميعادك'; $('hS').textContent=(cl.phone?'تليفون العيادة '+cl.phone:'')+(cl.addr?' · '+cl.addr:'');
+  document.title='احجز — '+(cl.name||'');
+  if(!d.on){ $('main').innerHTML='<div class="done"><div class="ic">🕘</div><b>الحجز الأونلاين مقفول دلوقتي</b>'+(cl.phone?'<p class="meta">احجز بالتليفون: <a href="tel:'+esc(cl.phone)+'" dir="ltr">'+esc(cl.phone)+'</a></p>':'')+'</div>'; return; }
+  if(d.docs.length===1) PICK.dr=d.docs[0].id;
+  draw();
+});
+function doc(){ for(var i=0;i<INFO.docs.length;i++) if(String(INFO.docs[i].id)===String(PICK.dr)) return INFO.docs[i]; return null; }
+function draw(){
+  var D=doc(), h=(INFO.note?'<div class="note">'+esc(INFO.note)+'</div>':'')+'<h2>احجز ميعادك</h2>';
+  if(INFO.docs.length>1) h+='<label class="l">الدكتور</label><div class="opts">'+INFO.docs.map(function(x){
+    return '<div class="opt'+(String(x.id)===String(PICK.dr)?' on':'')+'" data-dr="'+x.id+'"><b>'+esc(x.name)+'</b><small>'+esc(x.spec||'')+'</small></div>'; }).join('')+'</div>';
+  if(D){
+    if(D.svc.length) h+='<label class="l">الخدمة</label><div class="opts">'+D.svc.map(function(s){
+      return '<div class="opt'+(s.n===PICK.svc?' on':'')+'" data-sv="'+esc(s.n)+'"><b>'+esc(s.n)+'</b>'+(s.p?'<small>'+s.p+' ج</small>':'')+'</div>'; }).join('')+'</div>';
+    h+='<label class="l">اليوم</label>'+(D.days.length? '<div class="opts">'+D.days.map(function(x){
+      return '<div class="opt'+(x.d===PICK.date?' on':'')+'" data-dt="'+x.d+'"><b>'+dl(x.d)+'</b>'+(x.t?'<small>'+tl(x.t)+'</small>':'')+'</div>'; }).join('')+'</div>'
+      : '<p class="meta">مفيش أيام متاحة دلوقتي — كلّم العيادة.</p>');
+    h+='<label class="l">الاسم بالكامل</label><input id="fN" autocomplete="name">'+
+       '<label class="l">رقم التليفون</label><input id="fP" inputmode="tel" style="direction:ltr;text-align:right" placeholder="01xxxxxxxxx">'+
+       '<label class="l">ملاحظة (اختياري)</label><input id="fO" placeholder="مثلًا: متابعة بعد عملية">'+
+       '<div class="err" id="fE"></div><button class="btn" id="fGo">ابعت طلب الحجز</button>'+
+       '<p class="meta" style="margin-top:8px;text-align:center">الحجز بيتأكد لما العيادة ترد — تابعه من تحت برقم تليفونك.</p>';
+  }
+  var keep={}; ['fN','fP','fO'].forEach(function(k){ if($(k)) keep[k]=$(k).value; });
+  $('main').innerHTML=h;
+  ['fN','fP','fO'].forEach(function(k){ if($(k) && keep[k]) $(k).value=keep[k]; });
+  try{ if($('fP') && !$('fP').value) $('fP').value=localStorage.getItem('obph')||''; }catch(e){}
+  [].forEach.call(document.querySelectorAll('[data-dr]'),function(e){ e.onclick=function(){ PICK.dr=e.getAttribute('data-dr'); PICK.svc=''; PICK.date=''; draw(); }; });
+  [].forEach.call(document.querySelectorAll('[data-sv]'),function(e){ e.onclick=function(){ PICK.svc=e.getAttribute('data-sv'); draw(); }; });
+  [].forEach.call(document.querySelectorAll('[data-dt]'),function(e){ e.onclick=function(){ PICK.date=e.getAttribute('data-dt'); draw(); }; });
+  if($('fGo')) $('fGo').onclick=send;
+}
+function send(){
+  var D=doc(), b=$('fGo'), e=$('fE');
+  if(D.svc.length && !PICK.svc){ e.textContent=ERR.svc; return; }
+  if(!PICK.date){ e.textContent=ERR.date; return; }
+  var ph=$('fP').value.replace(/[٠-٩]/g,function(x){ return '٠١٢٣٤٥٦٧٨٩'.indexOf(x); }).replace(/\D/g,'');
+  b.disabled=true; e.textContent='';
+  call({a:'obook',dr:PICK.dr,svc:PICK.svc,date:PICK.date,name:$('fN').value,phone:ph,note:$('fO').value},function(d){
+    b.disabled=false;
+    if(!d.ok){ e.textContent=ERR[d.e]||ERR.net; return; }
+    try{ localStorage.setItem('obph',ph); }catch(x){} $('tP').value=ph;
+    $('main').innerHTML='<div class="done"><div class="ic">✅</div><b>طلبك وصل للعيادة</b><p>'+esc(D.name)+' · '+(PICK.svc?esc(PICK.svc)+' · ':'')+dl(PICK.date)+'</p>'+
+      '<p class="meta">العيادة هتأكد الحجز وتديك رقمك. تابع الرد من «تابع حجزك» تحت.</p><button class="btn out" id="again">حجز تاني</button></div>';
+    $('again').onclick=function(){ PICK.date=''; PICK.svc=''; draw(); };
+    track();
+  });
+}
+function track(){
+  var ph=$('tP').value.replace(/\D/g,''); if(!ph) return;
+  $('tOut').innerHTML='<div class="ld">بدوّر…</div>';
+  call({a:'obtrack',phone:ph},function(d){
+    if(!d.ok){ $('tOut').innerHTML='<div class="err">'+esc(ERR[d.e]||ERR.net)+'</div>'; return; }
+    try{ localStorage.setItem('obph',ph); }catch(x){}
+    $('tOut').innerHTML= d.list.length? d.list.map(function(x){ var c=x.st==='اتأكد'?'p-ok':(x.st==='اترفض'||x.st==='اتلغى')?'p-no':'p-new';
+      return '<div class="tr"><div style="flex:1"><b>'+esc(x.name)+'</b><div class="meta">'+esc(x.dr)+(x.svc?' · '+esc(x.svc):'')+' · '+dl(x.date)+'</div>'+
+        (x.msg?'<div style="font-size:14px">'+esc(x.msg)+'</div>':'')+'</div><span class="pill '+c+'">'+esc(x.st==='جديد'?'مستني رد العيادة':x.st)+(x.num&&x.st==='اتأكد'?' · رقم '+esc(x.num):'')+'</span></div>'; }).join('')
+      : '<p class="meta" style="margin-top:8px">مفيش حجوزات على الرقم ده.</p>';
+  });
+}
+$('tGo').onclick=track;
+})();
+</script>
+</body>
+</html>
